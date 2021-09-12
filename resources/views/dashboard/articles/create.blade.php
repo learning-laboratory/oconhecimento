@@ -2,9 +2,9 @@
 @extends('adminlte::page')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/summernote/summernote-bs4.min.css') }}">
 @stop
-@section('plugins.Select2', true)
 
 @section('title')
 
@@ -93,12 +93,12 @@
 
 									<div class="form-group border-bottom pb-2">
 										{!! Form::label('tag_id','Tags:') !!}
-										{!! Form::select('tag_id[]',$tags,null,['class'=>'form-control select2','multiple'=>'multiple']) !!}
+										{!! Form::select('tag_id[]',$tags,null,['class'=>'form-control  select2','multiple'=>'multiple']) !!}
 									</div>
 
 									<div class="form-group border-bottom pb-2">
-							            {!! Form::label('photo_id','Capa:') !!}
-									    {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
+							            {!! Form::label('photo','Capa:') !!}
+									    {!! Form::file('photo',null,['class'=>'form-control']) !!}
 									</div>
 
 									<div class="form-group">
@@ -112,10 +112,13 @@
 @stop
 
 @section('js')
+<script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 <script>
   $(function () {
-    $('.select2').select2();
+    $('.select2').select2({
+        theme: "classic"
+    });
     $('.text-area').summernote({
       lang: 'pt-PT'
     });

@@ -56,7 +56,6 @@ class ArticleController extends Controller
             return null;
 
         $path = $request->file('photo')->store('articles', 'public');
-
         if($article && $article->photo){
             $article->photo->update(['path' => $path]);
             return $article->photo->id;

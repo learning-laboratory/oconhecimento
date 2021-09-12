@@ -98,8 +98,8 @@
 									</div>
 
 									<div class="form-group border-bottom pb-2">
-							            {!! Form::label('photo_id','Capa:') !!}
-									    {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
+							            {!! Form::label('photo','Capa:') !!}
+									    {!! Form::file('photo',null,['class'=>'form-control']) !!}
 									</div>
 
 									<div class="form-group">
@@ -113,11 +113,13 @@
 @stop
 
 @section('js')
-<script src="{{ asset('vendor/js/select2.min.js') }}"></script>
+<script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 <script>
   $(function () {
-    $('.select2').select2();
+    $('.select2').select2({
+        theme: "classic"
+    });
     $('.text-area').summernote({
       lang: 'pt-PT'
     });
