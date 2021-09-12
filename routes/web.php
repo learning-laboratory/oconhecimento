@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', [BlogController::class, 'index']);
+Route::get('/home', [BlogController::class, 'index'])->name('home');
+Route::get('/article/{article_id}', [BlogController::class, 'article'])->name('blog.article');
+
+
+Route::prefix('dashboard')->middleware('auth')->group(function () {
+
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('users', UserController::class);
+    Route::resource('articles', ArticleController::class);
+    Route::resource('tags', TagController::class);
+    Route::resource('categories', CategoryController::class)->except('show');
+    Route::get('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+
 });
+
