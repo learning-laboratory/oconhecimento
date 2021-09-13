@@ -9,25 +9,25 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-5">
             <div class="input-group mb-3">
-                <input type="text" class="py-3 form-control" placeholder="Pesquisar..." aria-label="Pesquisar..." aria-describedby="basic-addon2">
+                <input type="text" name="term" id="term" class="py-3 form-control" placeholder="Pesquisar..." aria-label="Pesquisar..." aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                  <button class="input-group-text" id="basic-addon2">
-                      <i class="fas fa-search"></i>
+                  <button id="search-btn" class="input-group-text" id="basic-addon2">
+                      <i class="fas fa-search px-3"></i>
                   </button>
-                  <button class="input-group-text" id="basic-addon2" data-toggle="modal" data-target="#exampleModal">
-                      <i class="fas fa-microphone"></i>
+                  <button class="input-group-text" id="basic-addon2" data-toggle="modal" data-target="#micModal">
+                      <i class="fas fa-microphone px-3"></i>
                   </button>
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="micModal" tabindex="-1" role="dialog" aria-labelledby="micModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Pesquisar por voz</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title" id="micModalLabel">Pesquisar por voz</h5>
+                            <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -35,7 +35,8 @@
                             <span id="final_span" class="final"></span>
                             <span id="interim_span" class="interim"></span>
                         </div>
-                        <div class="modal-footer justify-content-center">
+                        <div class="modal-footer justify-content-between">
+                            <p>Clique no ícone do microfone e comece a falar.</p>
                             <button type="button" class="btn btn-danger rounded-circle" onclick="startButton(event)">
                                 <i class="fas fa-microphone"></i>
                             </button>
@@ -56,35 +57,34 @@
                 <p class="page-description">Veja todos os artigos disponiveis</p>
             </div>
         </div>
-
+    </div>
+    <div id="articles-list" class="row">
         @forelse ($articles as $article)
             <div class="col-sm-12 col-md-4 px-3">
-                <div class="article">
-                    <img class="article-image rounded py-2" width="300" height="220" src="{{ $article->getFeturedImage() }}" alt="Capa do Artigo">
-                    <h2 class="article-title py-2">
-                        <a href="{{ route('blog.article', $article->id) }}">
-                            {{ $article->title }}
-                        </a>
-                    </h2>
-                    <div class="article-categories">
-                        @forelse ($article->categories as $category)
-                            <span class="badge badge-dark">
-                                {{ $category->name }}
-                            </span>
-                        @empty
-                            Sem Categoria
-                        @endforelse
-                    </div>
-                    <div class="article-published">
-                        {{ $category->created_at->format('d-M-Y') }}
-                    </div>
-                    <div class="article-content py-3">
-                        @if($article->summary)
-                            {!! Str::limit($article->summary,160, ' [...]'); !!}
-                        @else
-                            {!! Str::limit($article->content,160, ' [...]'); !!}
-                        @endif
-                    </div>
+                <img class="article-image rounded py-2" width="300" height="220" src="{{ $article->getFeturedImage() }}" alt="Capa do Artigo">
+                <h2 class="article-title py-2">
+                    <a href="{{ route('blog.article', $article->id) }}">
+                        {{ $article->title }}
+                    </a>
+                </h2>
+                <div class="article-categories">
+                    @forelse ($article->categories as $category)
+                        <span class="badge badge-dark">
+                            {{ $category->name }}
+                        </span>
+                    @empty
+                        Sem Categoria
+                    @endforelse
+                </div>
+                <div class="article-published">
+                    {{ $category->created_at->format('d-M-Y') }}
+                </div>
+                <div class="article-content py-3">
+                    @if($article->summary)
+                        {!! Str::limit($article->summary,160, ' ...'); !!}
+                    @else
+                        {!! Str::limit($article->content,160, ' ...'); !!}
+                    @endif
                 </div>
             </div>
         @empty
@@ -97,7 +97,10 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+
 <script >
 
     var final_transcript = '';
@@ -148,19 +151,13 @@
         }
 
         if(final_transcript){
-            term = final_transcript;
-            console.log(term)
-            $.ajax({
-                url: 'http://127.0.0.1:8000/search?term='+term,
-                type: 'GET',
-                success: function(data){
-                    if(data){
-                        console.log(data)
-                    }else{
-                        console.log('Sem Registos')
-                    }
-                }
-            });
+
+            if($('#micModal').hasClass('show')){
+                $('#micModal').fadeOut();
+                $('.modal-backdrop').fadeOut();
+                $('.modal-open').css({'overflow': 'visible'});
+            }
+            send_request(final_transcript);
         }
 
     };
@@ -193,18 +190,50 @@
     }
 
     function startButton(event) {
-    if (recognizing) {
-        recognition.stop();
-        return;
+        if (recognizing) {
+            recognition.stop();
+            return;
+        }
+        final_transcript = '';
+        recognition.lang = 'pt-BR';
+        recognition.start();
+        ignore_onend = false;
+        final_span.innerHTML = '';
+        interim_span.innerHTML = '';
+        start_timestamp = event.timeStamp;
     }
-    final_transcript = '';
-    recognition.lang = 'pt-BR';
-    recognition.start();
-    ignore_onend = false;
-    final_span.innerHTML = '';
-    interim_span.innerHTML = '';
-    start_timestamp = event.timeStamp;
+
+    $("#search-btn").on("click", function(){
+        term = $("#term").val();
+        send_request(term)
+    });
+
+    function send_request(term) {
+        $.ajax({
+                url: 'http://127.0.0.1:8000/search?term='+term,
+                type: 'GET',
+                success: function(data){
+                    if(data.length > 0){
+                        console.log(data)
+                        $('#articles-list').html("")
+                        $('#articles-list').html(data)
+                    }else{
+                        $('#articles-list').html('<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>')
+                    }
+                }
+        });
+
+        if(final_span.innerHTML !== '')
+            $("#term").val(final_span.innerHTML)
+        final_span.innerHTML = ''
+        interim_span.innerHTML = ''
     }
+
+
+
+    
+
+
 </script>
 
 @endsection
