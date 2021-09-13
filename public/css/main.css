@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+.page-title{
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.page-description{
+    font-size: 17px;
+}
+
+.article-title{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lora';
+}
+
+.article-published,
+.article-categories{
+    font-size: 16px;
+}
+
+.article-content p{
+    font-size: 16px;
+}

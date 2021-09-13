@@ -9,7 +9,10 @@ class BlogController extends Controller
 {
     public function index()
     {
-        return view('blog.index');
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return view('blog.index', [
+            'articles' => $articles
+        ]);
     }
 
     public function article($id)
@@ -18,5 +21,12 @@ class BlogController extends Controller
         return view('blog.article', [
             'article' => $article
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $term = '%'.$request->term.'%';
+        $articles = Article::where('title','like',$term)->get();
+        return response()->json($articles);
     }
 }

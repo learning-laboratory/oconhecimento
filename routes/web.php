@@ -23,12 +23,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BlogController::class, 'index']);
 Route::get('/home', [BlogController::class, 'index'])->name('home');
 Route::get('/article/{article_id}', [BlogController::class, 'article'])->name('blog.article');
+Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
     Route::resource('articles', ArticleController::class);
     Route::resource('tags', TagController::class);
     Route::resource('categories', CategoryController::class)->except('show');

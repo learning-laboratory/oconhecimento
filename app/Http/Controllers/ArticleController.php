@@ -45,7 +45,7 @@ class ArticleController extends Controller
         $article->tags()->sync($request->tag_id);
 
         return redirect()->route('articles.index')->with([
-            'message' => 'Registo efectuado.'
+            'message' => 'Artigo registado com sucesso.'
         ]);
 
     }
@@ -97,7 +97,7 @@ class ArticleController extends Controller
         $article->tags()->sync($request->tag_id);
 
         return redirect()->route('articles.index')->with([
-            'message' => 'Registo efectuado.'
+            'message' => 'Artigo actualizado com sucesso.'
         ]);
 
     }
@@ -113,7 +113,7 @@ class ArticleController extends Controller
         $article->tags()->sync([]);
         $article->delete();
         return redirect()->route('articles.index')->with([
-            'message' => 'Remocão efectuada.'
+            'message' => 'Artigo removido com sucesso.'
         ]);
     }
 
