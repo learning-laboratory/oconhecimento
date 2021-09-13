@@ -6,7 +6,9 @@
 @endsection
 
 @section('content')
-
+<div id="loader" style="display: none">
+    <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-5">
@@ -212,6 +214,9 @@
         $.ajax({
                 url: 'http://127.0.0.1:8000/search?term='+term,
                 type: 'GET',
+                beforeSend: function() {
+        			$('#loader').fadeIn();
+                },
                 success: function(data){
                     if(data.length > 0){
                         console.log(data)
@@ -220,6 +225,9 @@
                     }else{
                         $('#articles-list').html('<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>')
                     }
+                },
+                complete: function() {
+                    $('#loader').fadeOut();
                 }
         });
 
