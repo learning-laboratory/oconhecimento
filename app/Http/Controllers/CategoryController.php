@@ -11,8 +11,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::orderBy('created_at','desc')->get();
-        return view('dashboard.categories.index',[
+        $categories = Category::orderBy('created_at', 'desc')->get();
+        return view('dashboard.categories.index', [
             'categories' => $categories
         ]);
     }
@@ -20,13 +20,12 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect()->route('categories.index')->with('message','Categoria registada com sucesso');
-
+        return redirect()->route('categories.index')->with('message', 'Categoria registada com sucesso');
     }
 
     public function edit(Category $category)
     {
-        return view('dashboard.categories.edit',[
+        return view('dashboard.categories.edit', [
             'category' => $category
         ]);
     }
@@ -34,15 +33,13 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->route('categories.index')->with('message','Categoria actualizada com sucesso');
+        return redirect()->route('categories.index')->with('message', 'Categoria actualizada com sucesso');
     }
 
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('message','Categoria removida com sucesso');
+        return redirect()->route('categories.index')->with('message', 'Categoria excluída com sucesso');
     }
-
-
 }

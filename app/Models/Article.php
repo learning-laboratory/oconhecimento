@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -31,21 +31,34 @@ class Article extends Model
 
     public function categories()
     {
-       return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function tags()
     {
-       return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
 
-    public function isMyCategory($category_id)
+
+    public function getFeaturedImage()
     {
-        return in_array($category_id, $this->categories->pluck('id')->toArray());
+        return $this->photo ? asset('storage/' . $this->photo->path) : 'https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80';
     }
 
-    public function getFeturedImage()
+    public function getArchiveDate()
     {
-        return $this->photo ? asset('storage/'.$this->photo->path) : 'https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80';
+        return Carbon::createFromDate($this->year, $this->month, null);
+    }
+
+    public function getFormatedSummaryOrContent()
+    {
+        if($this->summary)
+            return Str::limit($this->summary, 100, '...');
+        return Str::limit($this->content, 100, '...');
+    }
+
+    public function getLink()
+    {
+        return route('blog.article', $this->id);
     }
 }
