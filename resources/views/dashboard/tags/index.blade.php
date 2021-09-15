@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.min.css') }}">
 @stop
-@section('plugins.Datatables', true)
 @section('title')
 
 @section('content_header')

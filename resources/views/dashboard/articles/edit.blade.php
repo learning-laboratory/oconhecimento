@@ -103,7 +103,7 @@
 									</div>
 
 									<div class="form-group">
-										{!! Form::submit('Publicar',['class'=>'btn btn-primary']) !!}
+										{!! Form::submit('Salvar',['class'=>'btn btn-primary']) !!}
 									</div>
 							    </div>
 						    </div>

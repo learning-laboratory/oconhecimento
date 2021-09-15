@@ -14,17 +14,17 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::orderBy('created_at','desc')->get();
-        return view('dashboard.articles.index',[
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return view('dashboard.articles.index', [
             'articles' => $articles
         ]);
     }
 
     public function create()
     {
-        $categories = Category::orderBy('created_at','desc')->get()->pluck('name','id');
-        $tags = Tag::orderBy('created_at','desc')->get()->pluck('name','id');
-        return view('dashboard.articles.create',[
+        $categories = Category::orderBy('created_at', 'desc')->get()->pluck('name', 'id');
+        $tags = Tag::orderBy('created_at', 'desc')->get()->pluck('name', 'id');
+        return view('dashboard.articles.create', [
             'categories' => $categories,
             'tags' => $tags
         ]);
@@ -45,18 +45,18 @@ class ArticleController extends Controller
         $article->tags()->sync($request->tag_id);
 
         return redirect()->route('articles.index')->with([
-            'message' => 'Registo efectuado.'
+            'message' => 'Artigo registado com sucesso.'
         ]);
-
     }
 
-    public function uploadPhotoAndReturnPhotoId(Request $request, Article $article = null) :null|int
+    public function uploadPhotoAndReturnPhotoId(Request $request, Article $article = null): null|int
     {
-        if(!$request->photo)
+        if (!$request->photo)
             return null;
 
         $path = $request->file('photo')->store('articles', 'public');
-        if($article && $article->photo){
+
+        if ($article && $article->photo) {
             $article->photo->update(['path' => $path]);
             return $article->photo->id;
         }
@@ -67,8 +67,8 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        $categories = Category::orderBy('created_at','desc')->get()->pluck('name','id');
-        $tags = Tag::orderBy('created_at','desc')->get()->pluck('name','id');
+        $categories = Category::orderBy('created_at', 'desc')->get()->pluck('name', 'id');
+        $tags = Tag::orderBy('created_at', 'desc')->get()->pluck('name', 'id');
 
         $tags_selected       = $article->tags()->pluck('tags.id');
         $categories_selected = $article->categories()->pluck('categories.id');
@@ -97,15 +97,14 @@ class ArticleController extends Controller
         $article->tags()->sync($request->tag_id);
 
         return redirect()->route('articles.index')->with([
-            'message' => 'Registo efectuado.'
+            'message' => 'Artigo actualizado com sucesso.'
         ]);
-
     }
 
     public function destroy(Article $article)
     {
-        if($article->photo){
-            unlink('storage/'.$article->photo->path);
+        if ($article->photo) {
+            unlink('storage/' . $article->photo->path);
             Photo::findOrFail($article->photo->id)->delete();
         }
 
@@ -113,8 +112,7 @@ class ArticleController extends Controller
         $article->tags()->sync([]);
         $article->delete();
         return redirect()->route('articles.index')->with([
-            'message' => 'Remocão efectuada.'
+            'message' => 'Artigo exluído com sucesso.'
         ]);
     }
-
 }

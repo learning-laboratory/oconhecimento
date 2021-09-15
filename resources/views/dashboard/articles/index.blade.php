@@ -46,6 +46,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Titulo</th>
+                                                <th>Categoria</th>
                                                 <th>Author</th>
                                                 <th>Data Publicacao</th>
                                                 <th>Acções</th>
@@ -56,6 +57,13 @@
                                                 @foreach($articles as $article)
                                                     <tr>
                                                         <td>{{$article->title}}</td>
+                                                        <td>
+                                                            @forelse ($article->categories as $category)
+                                                                {{ $category->name }}
+                                                            @empty
+                                                                Sem categoria
+                                                            @endforelse
+                                                        </td>
                                                         <td>{{$article->author->name}}</td>
                                                         <td>{{$article->created_at}}</td>
                                                         <td class="py-0 align-middle">

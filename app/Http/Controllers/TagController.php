@@ -10,8 +10,8 @@ class TagController extends Controller
 
     public function index()
     {
-        $tags = Tag::orderBy('created_at','desc')->get();
-        return view('dashboard.tags.index',[
+        $tags = Tag::orderBy('created_at', 'desc')->get();
+        return view('dashboard.tags.index', [
             'tags' => $tags
         ]);
     }
@@ -19,13 +19,12 @@ class TagController extends Controller
     public function store(TagRequest $request)
     {
         Tag::create($request->all());
-        return redirect()->route('tags.index')->with('message','Tag registada com sucesso');
-
+        return redirect()->route('tags.index')->with('message', 'Tag registada com sucesso');
     }
 
     public function edit(Tag $tag)
     {
-        return view('dashboard.tags.edit',[
+        return view('dashboard.tags.edit', [
             'tag' => $tag
         ]);
     }
@@ -33,12 +32,12 @@ class TagController extends Controller
     public function update(TagRequest $request, Tag $tag)
     {
         $tag->update($request->all());
-        return redirect()->route('tags.index')->with('message','Tag actualizada com sucesso');
+        return redirect()->route('tags.index')->with('message', 'Tag atualizada com sucesso');
     }
 
     public function destroy(Tag $tag)
     {
         $tag->delete();
-        return redirect()->route('tags.index')->with('message','Tag removida com sucesso');
+        return redirect()->route('tags.index')->with('message', 'Tag excluída com sucesso');
     }
 }
