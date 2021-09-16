@@ -22,13 +22,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogController::class, 'home']);
 Route::get('/home', [BlogController::class, 'home'])->name('home');
+Route::get('/about', [BlogController::class, 'about'])->name('blog.about');
 Route::get('/contact', [BlogController::class, 'contact'])->name('blog.contact');
 Route::get('/articles', [BlogController::class, 'articles'])->name('blog.articles');
 Route::get('/article/{article_id}', [BlogController::class, 'article'])->name('blog.article');
 Route::get('/articles/category/{category_id}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/articles/archive/{month}', [BlogController::class, 'archive'])->name('blog.archive');
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
-
+Route::get('/search/category', [BlogController::class, 'search_category'])->name('blog.search_category');
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
 
