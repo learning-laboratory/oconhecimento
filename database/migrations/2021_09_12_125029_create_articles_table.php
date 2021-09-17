@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string("title");
             $table->longText("content")->nullable();
             $table->mediumText("summary")->nullable();
+            $table->integer("views")->default(0);
             $table->unsignedBigInteger("photo_id")->nullable();
             $table->unsignedBigInteger("user_id")->nullable();
             $table->timestamps();

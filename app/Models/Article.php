@@ -42,7 +42,9 @@ class Article extends Model
 
     public function getFeaturedImage()
     {
-        return $this->photo ? asset('storage/' . $this->photo->path) : 'https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80';
+        if ($this->photo)
+            return asset('storage/' . $this->photo->path);
+        return 'https://images.unsplash.com/photo-1603349206295-dde20617cb6a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80';
     }
 
     public function getArchiveDate()
@@ -50,15 +52,30 @@ class Article extends Model
         return Carbon::createFromDate($this->year, $this->month, null);
     }
 
-    public function getFormatedSummaryOrContent()
-    {
-        if($this->summary)
-            return Str::limit($this->summary, 100, '...');
-        return Str::limit($this->content, 100, '...');
-    }
-
     public function getLink()
     {
         return route('blog.article', $this->id);
+    }
+
+    public function getCreatedAtFormated()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+    public function getUpdatedAtFormated()
+    {
+        return $this->updated_at->diffForHumans();
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->created_at->format('Y-m-d H:i:s');
+    }
+
+    public function getPublishedDate()
+    {
+        if ($this->created_at == $this->updated_at)
+            return 'Publicado ' . $this->created_at->diffForHumans();
+        return 'Ultima atualizacao ' . $this->updated_at->diffForHumans();
     }
 }

@@ -2,102 +2,97 @@
 
 @section('content')
 
-    <section class="p-5">
-        <div id="loader" style="display: none">
-            <img src="{{ asset('img/ajax-loader.gif') }}" alt="Imagem de carregamento">
-        </div>
+<div id="loader" style="display: none">
+    <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+</div>
 
-        <div class="container py-2">
-            <div class="row justify-content-center">
-                <div class="col-4">
-                    <div class="input-group m-4">
-                        <div class="input-group">
-                            <input name="term" id="term" type="text" class="form-control"
-                                aria-label="Dollar amount (with dot and two decimal places)">
-                            <button id="search-btn" class="input-group-text">
-                                <i class="fas fa-search px-3"></i>
-                            </button>
-                            <button class="input-group-text" data-bs-toggle="modal" data-bs-target="#micModal">
-                                <i class="fas fa-microphone px-3"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Pesquisar por voz</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body py-5">
-                                    <span id="final_span" class="final"></span>
-                                    <span id="interim_span" class="interim"></span>
-                                </div>
-                                <div class="modal-footer  justify-content-between">
-                                    <p>Clique no botão iniciar e comece a falar.</p>
-                                    <button type="button" class="btn btn-danger text-white"
-                                        onclick="startButton(event)">Iniciar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+<section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
+    <div class="container">
+        <div class="search-section">
+            <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
+            <div class="input-group">
+                <div class="input-group">
+                    <input name="term" id="term" type="text" class="form-control py-3">
+                    <button id="search-btn" class="input-group-text">
+                        <i class="fas fa-search px-3"></i>
+                    </button>
+                    <button id="mic-btn" class="input-group-text" data-bs-toggle="modal" data-bs-target="#micModal">
+                        <i class="fas fa-microphone px-3"></i>
+                    </button>
                 </div>
             </div>
         </div>
-
-        <section class="py-2 text-center container">
+        <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="modal-lable" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-lable">Pesquisar por voz</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-5">
+                        <span id="final_span" class="final"></span>
+                        <span id="interim_span" class="interim"></span>
+                    </div>
+                    <div class="modal-footer  justify-content-between">
+                        <p>Clique no botão iniciar e comece a falar.</p>
+                        <button type="button" class="btn btn-danger text-white"
+                            onclick="startButton(event)">Iniciar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="p-5 my-2">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light page-title">{{ $title }}</h1>
-                    <p class="lead text-muted page-description">Veja todos os artigos disponiveis</p>
+                <div class="col-sm-12">
+                    <h2 class="page-title">{{ $title }}</h2>
+                    <p>Veja todos os artigos disponiveis</p>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <div class="py-5">
-            <div class="container">
-                <div id="articles-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    @forelse ($articles as $article)
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                <img src="{{ $article->getFeaturedImage() }}" class="card-img-top" width="100%"
-                                    height="235" alt="Capa do Artigo">
-                                <div class="card-body">
-                                    <h2 class="article-title">
-                                        <a href="{{ $article->getLink() }}">{{ $article->title }}</a>
-                                    </h2>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="article-author">
-                                            De {{ $article->author->name }}
-                                        </div>
-                                        <small class="text-muted article-published">Publicado
-                                            {{ $article->created_at->diffForHumans() }}</small>
+        <div class="tab-content pt-5 pb-2" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="container">
+                    <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        @forelse ($articles as $article)
+                            <div class="col align-items-stretch">
+                                <div class="card">
+                                    <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
+                                        alt="Capa da Imagem">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{{ $article->getLink() }}">
+                                                <h4 class="card-title">{{ $article->title }}</h4>
+                                            </a>
+                                        </h5>
+                                        @if ($article->created_at == $article->updated_at)
+                                            <p class="card-text"><small class="text-muted">Publicado {{ $article->getCreatedAtFormated() }}</small></p>
+                                        @else
+                                            <p class="card-text"><small class="text-muted">Última atualização {{ $article->getUpdatedAtFormated() }}</small></p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <p><strong>Sem artigos</strong></p>
-                    @endforelse
-
-                    <div class="article-paginate d-flex justify-content-center py-4">
-                        {{ $articles->links() }}
+                        @empty
+                            <p><strong>Sem artigos</strong></p>
+                        @endforelse
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
+
 
 @endsection
 
 @section('js')
     <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
     <script>
+
         var final_transcript = '';
         var recognizing = false;
         var ignore_onend;
@@ -244,13 +239,13 @@
                                     term);
                             }
                         }
-                        $('#articles-list').html("")
-                        $('#articles-list').html(data)
+                        $('#articles').html("")
+                        $('#articles').html(data)
                     } else {
                         if (voice_response) {
                             textToSpeech("Nenhum resultado foi encontrado na busca por " + term);
                         }
-                        $('#articles-list').html(
+                        $('#articles').html(
                             '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
                         )
                     }
@@ -266,5 +261,4 @@
             interim_span.innerHTML = ''
         }
     </script>
-
 @endsection

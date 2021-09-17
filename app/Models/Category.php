@@ -16,4 +16,15 @@ class Category extends Model
     {
       return $this->belongsToMany(Article::class);
     }
+
+    public function getLink()
+    {
+        return route('blog.category', $this->id);
+    }
+
+    public function getSearchCategoryLink()
+    {
+        return route('blog.search_category', $this->id);
+    }
+
 }
