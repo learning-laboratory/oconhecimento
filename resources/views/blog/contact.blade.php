@@ -5,12 +5,12 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="bg-white p-5">
+                    <div class="contact-form p-5">
                         <div class="text-center">
                             <h2 class="contact-title">Deixe-nos uma mensagem</h2>
                             <p class="contact-description">Normalmente respondemos dentro de 2 dias úteis</p>
                         </div>
-                        <form action="#" method="post" class="row">
+                        <form  class="row">
                             <div class="col-md-6 py-2">
                                 <label for="name">Nome:</label>
                                 <input type="text" name="name" id="name" class="form-control">

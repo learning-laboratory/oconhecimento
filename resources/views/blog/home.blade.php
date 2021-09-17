@@ -1,14 +1,14 @@
 @extends('layouts.blog')
 
 @section('content')
-<div id="loader" style="display: none">
-    <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
-</div>
+    <div id="loader" style="display: none">
+        <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+    </div>
 
     <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
         <div class="container">
             <div class="search-section">
-                <h2 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h2>
+                <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
                 <div class="input-group">
                     <div class="input-group">
                         <input name="term" id="term" type="text" class="form-control py-3">
@@ -79,14 +79,15 @@
                                         alt="Capa da Imagem">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <a href="{{ $article->getLink() }}">
-                                                <h4 class="card-title">{{ $article->title }}</h4>
-                                            </a>
+
+                                            <h4 class="card-title"> <a class="article-title" href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
                                         </h5>
                                         @if ($article->created_at == $article->updated_at)
-                                            <p class="card-text"><small class="text-muted">Publicado {{ $article->getCreatedAtFormated() }}</small></p>
+                                            <p class="card-text"><small class="text-muted">Publicado
+                                                    {{ $article->getCreatedAtFormated() }}</small></p>
                                         @else
-                                            <p class="card-text"><small class="text-muted">Última atualização {{ $article->getUpdatedAtFormated() }}</small></p>
+                                            <p class="card-text"><small class="text-muted">Última atualização
+                                                    {{ $article->getUpdatedAtFormated() }}</small></p>
                                         @endif
                                     </div>
                                 </div>
@@ -110,9 +111,7 @@
                                         alt="Capa da Imagem">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <a href="{{ $article->getLink() }}">
-                                                <h4 class="card-title">{{ $article->title }}</h4>
-                                            </a>
+                                            <h4 class="card-title"> <a class="article-title" href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
                                         </h5>
                                         @if ($article->updated_at)
                                             <p class="card-text"><small class="text-muted">Última atualização
@@ -152,15 +151,19 @@
                         $('#loader').fadeIn();
                     },
                     success: function(data) {
-                        if(data) {
+                        if (data) {
                             $('#articles').html("");
                             $('#recomendations').html("");
 
                             $('#articles').html(data.articles);
                             $('#recomendations').html(data.mostViewArticles);
-                        }else{
-                            $('#articles').html('<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>');
-                            $('#recomendations').html('<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>');
+                        } else {
+                            $('#articles').html(
+                                '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
+                            );
+                            $('#recomendations').html(
+                                '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
+                            );
                         }
 
                     },

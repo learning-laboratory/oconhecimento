@@ -72,4 +72,10 @@ class Article extends Model
         return $this->created_at->format('Y-m-d H:i:s');
     }
 
+    public function getPublishedDate()
+    {
+        if ($this->created_at == $this->updated_at)
+            return 'Publicado ' . $this->created_at->diffForHumans();
+        return 'Ultima atualizacao ' . $this->updated_at->diffForHumans();
+    }
 }

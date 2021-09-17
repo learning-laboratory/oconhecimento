@@ -60,6 +60,8 @@ class BlogController extends Controller
     public function article($id)
     {
         $article = Article::findOrFail($id);
+        $article->views++;
+        $article->save();
         $categories = Category::all();
         $articles = Article::take(5)->orderBy('created_at', 'desc')->get();
         $archives = Article::selectRaw('month(created_at) month, year(created_at) year, count(*) num_articles')
@@ -134,9 +136,7 @@ class BlogController extends Controller
                             alt="Capa da Imagem">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="' . $link . '">
-                                    <h4 class="card-title">' . $title . '</h4>
-                                </a>
+                                <h4 class="card-title"> <a class="article-title" href="'.$link.'">'.$title.'</a></h4>
                             </h5>
                             ' . $published . '
                         </div>

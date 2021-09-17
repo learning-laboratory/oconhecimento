@@ -38,14 +38,10 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
 
                 <div id="articles-list" class="col-sm-12 col-md-8">
-                    <h1 class="article-title">{{ $article->title }}</h1>
-
-                    <img class="article-image rounded py-2 card-img" src="{{ $article->getFeaturedImage() }}" alt="Capa do Artigo">
-
                     <div class="article-categories py-2">
                         @forelse ($article->categories as $category)
                             <span class="badge bg-dark">
@@ -56,24 +52,80 @@
                         @endforelse
                     </div>
 
-                    <div class="article-author">De {{ $article->author->name }}</div>
-                    <small class="article-published"> Publicado {{ $article->created_at->diffForHumans() }}</small>
+                    <h1 class="single-article article-title mb-4">{{ $article->title }}</h1>
+                    <div class="container">
+                        <div class="row position-relative g-0 align-items-center border-top border-bottom mb-4">
+                            <div class="col-md-6 py-3 pe-md-3">
+                                <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                                    <div class="d-flex align-items-center me-grid-gutter"><a class="d-block"
+                                            href="#">
+                                            <img class="rounded-circle  me-1" src="{{ $article->author->getAvatar() }}"
+                                                alt="Foto do autor" width="64"></a>
+                                        <div class="ps-2">
+                                            <h6 class="mb-1 article-author">{{ $article->author->name }}</h6>
+                                            <div class="text-nowrap">
+                                                <div class="article-meta fs-xs">
+                                                    <i
+                                                        class="fa fa-calendar me-1 align-vertical"></i>&nbsp;{{ $article->getPublishedDate() }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-none d-md-block position-absolute border-start h-100"
+                                style="top: 0; left: 50%; width: 1px;"></div>
+                            <div class="col-md-6 ps-md-3 py-3">
+                                <div class="d-flex align-items-center justify-content-center justify-content-md-end">
+                                    <h6 class="text-nowrap article-meta my-2 me-3">Compartilhar:</h6>
+                                    <ul class="my-2 social-links list-unstyled d-flex">
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class="fab fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <img class="article-image py-2 me-2 card-img" src="{{ $article->getFeaturedImage() }}"
+                        alt="Capa do Artigo">
                     <div class="article-content py-3">
                         {!! $article->content !!}
                     </div>
+
+
                     <div class="article-tags py-2">
                         @foreach ($article->tags as $tag)
-                            <span class="badge bg-secondary">
+                            <span class="badge bg-dark">
                                 #{{ $tag->name }}
                             </span>
                         @endforeach
                     </div>
+
                 </div>
 
-                <div class="col-sm-12 col-md-4 bg-white shadow-sm">
-                    <div class="m-4">
-                        <h2 class="sidebar-title pb-1">Pesquisa</h2>
-                        <div class="input-group">
+                <div class="sidebar col-sm-12 col-md-4 shadow-sm">
+                    <div class="m-4 mb-5">
+                        <h2 class="sidebar-title">Pesquisa</h2>
+                        <div class="input-group py-2">
                             <div class="input-group">
                                 <input name="term" id="term" type="text" class="form-control"
                                     aria-label="Dollar amount (with dot and two decimal places)">
@@ -87,13 +139,14 @@
                         </div>
                     </div>
 
-                    <div class="m-4">
+                    <div class="m-4 mb-5">
                         @if ($categories)
                             <div>
                                 <h2 class="sidebar-title">Categorias</h2>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled sidebar-categories">
                                     @foreach ($categories as $category)
-                                        <li>
+                                        <li class="ms-2">
+                                            <i class="fa fa-angle-right"></i>
                                             <a href="{{ route('blog.category', $category->id) }}">
                                                 {{ $category->name }}
                                             </a>
@@ -104,18 +157,21 @@
                         @endif
                     </div>
 
-                    <div class=" m-4">
+                    <div class=" m-4 mb-5">
                         @if ($archives)
                             <div>
                                 <h2 class="sidebar-title">Arquivos</h2>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled sidebar-archives">
                                     @foreach ($archives as $archive)
-                                        <li class="d-flex justify-content-between align-items-center">
-                                            <a href="{{ route('blog.archive', $archive->month) }}">
-                                                {{ ucfirst($archive->getArchiveDate()->monthName) }}
-                                                {{ $archive->getArchiveDate()->year }}
-                                            </a>
-                                            <span class="badge bg-primary badge-pill">{{ $archive->num_articles }}</span>
+                                        <li class="py-2 d-flex justify-content-between align-items-center ms-2">
+                                            <div>
+                                                <i class="fa fa-angle-right"></i>
+                                                <a href="{{ route('blog.archive', $archive->month) }}">
+                                                    {{ ucfirst($archive->getArchiveDate()->monthName) }}
+                                                    {{ $archive->getArchiveDate()->year }}
+                                                </a>
+                                            </div>
+                                            <span class="badge bg-dark badge-pill">{{ $archive->num_articles }}</span>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -129,17 +185,17 @@
                                 <h2 class="sidebar-title">Artigos Recentes</h2>
                                 <ul class="list-unstyled">
                                     @foreach ($articles as $article)
-                                        <li class="py-1">
+                                        <li class="py-2">
                                             <div class="d-flex">
-                                                <img class="sidebar-article-img" width="100" height="65"
-                                                    class="p-1 rounded-3" src="{{ $article->getFeaturedImage() }}"
+                                                <img class="sidebar-article-image" width="95" height="73"
+                                                    class="p-1 " src="{{ $article->getFeaturedImage() }}"
                                                     alt="Capa de artigo">
                                                 <div class="px-2">
                                                     <a class="sidebar-article-title"
                                                         href="{{ route('blog.article', $article->id) }}">
                                                         {{ $article->title }}
                                                     </a>
-                                                    <p class="sidebar-author">
+                                                    <p class="sidebar-article-author">
                                                         De {{ $article->author->name }}
                                                     </p>
                                                 </div>

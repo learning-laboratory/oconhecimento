@@ -9,7 +9,7 @@
 <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
     <div class="container">
         <div class="search-section">
-            <h2 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h2>
+            <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
             <div class="input-group">
                 <div class="input-group">
                     <input name="term" id="term" type="text" class="form-control py-3">
@@ -44,7 +44,6 @@
         </div>
     </div>
 </section>
-
     <section class="p-5 my-2">
         <div class="container">
             <div class="row">
