@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -20,7 +22,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'role_id',
+        'photo_id',
+        'is_suspended',
+        'description'
     ];
 
     /**
@@ -44,8 +50,15 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
+        if ($this->photo)
+            return asset('storage/'.$this->photo->path);
         $name = str_replace(' ', '+', trim($this->name));
         return 'https://ui-avatars.com/api/?name='.$name;
+    }
+
+    public function photo()
+    {
+        return $this->belongsTo(Photo::class);
     }
 
 }

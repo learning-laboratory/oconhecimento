@@ -97,8 +97,8 @@
 @stop
 
 @section('js')
-<script src="{{ asset('vendor/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendor/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
 <script>
   $(function () {
     $('#table').DataTable({
