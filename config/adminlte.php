@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => 'O Conhecimento',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'img/dashboard-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -241,12 +241,11 @@ return [
             'topnav_right' => true, // Or "topnav => true" to place on the left.
         ],
 
-
         // Sidebar items:
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Dashboard',
+            'url'  => '/dashboard',
+            'icon'    => 'fas fa-fw fa-tachometer-alt',
         ],
         ['header' => 'OPERACÇÕES'],
         [

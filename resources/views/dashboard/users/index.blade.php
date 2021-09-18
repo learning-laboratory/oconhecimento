@@ -54,7 +54,8 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td>
-                                                    <img class="img-circle img-size-32 mr-2" src="{{ $user->getAvatar() }}" alt="Avatar do utilizador">
+                                                    <img class="img-circle img-size-32 mr-2"
+                                                        src="{{ $user->getAvatar() }}" alt="Avatar do utilizador">
                                                     {{ $user->name }}
                                                 </td>
                                                 <td>{{ $user->email }}</td>
@@ -99,6 +100,9 @@
             <script>
                 $(function() {
                     $('#table').DataTable({
+                        "order": [
+                            [2, "desc"]
+                        ],
                         "language": {
                             url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/pt_br.json'
                         }
