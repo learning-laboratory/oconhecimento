@@ -59,6 +59,7 @@ class UserController extends Controller
         $path = $request->file('photo')->store('users', 'public');
 
         if($user && $user->photo){
+            unlink('storage/' . $user->photo->path);
             $user->photo->update(['path' => $path]);
             return $user->photo->id;
         }
