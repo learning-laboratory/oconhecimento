@@ -47,29 +47,29 @@
                             {!! Form::open(['method' => 'PUT', 'route' => ['user-profile-information.update', $user], 'files' => true]) !!}
                             {!! Form::label('photo', 'Foto:') !!}
                             <div class="form-group">
-                                {!! Form::file('photo', null, ['class' => 'form-control ' . ($errors->has('photo') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('photo'))
+                                {!! Form::file('photo', null, ['class' => 'form-control ' . ($errors->updateProfileInformation->has('photo') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updateProfileInformation->has('photo'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('photo') }}</strong>
+                                        <strong>{{ $errors->updateProfileInformation->first('photo') }}</strong>
                                     </div>
                                 @endif
                             </div>
 
                             {!! Form::label('name', 'Nome:') !!}
                             <div class="form-group">
-                                {!! Form::text('name', $user->name, ['class' => 'form-control ' . ($errors->has('name') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('name'))
+                                {!! Form::text('name', $user->name, ['class' => 'form-control ' . ($errors->updateProfileInformation->has('name') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updateProfileInformation->has('name'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->updateProfileInformation->first('name') }}</strong>
                                     </div>
                                 @endif
                             </div>
                             {!! Form::label('email', 'E-mail:') !!}
                             <div class="form-group">
-                                {!! Form::text('email', $user->email, ['class' => 'form-control ' . ($errors->has('email') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('email'))
+                                {!! Form::text('email', $user->email, ['class' => 'form-control ' . ($errors->updateProfileInformation->has('email') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updateProfileInformation->has('email'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->updateProfileInformation->first('email') }}</strong>
                                     </div>
                                 @endif
                             </div>
@@ -94,29 +94,29 @@
                             {!! Form::open(['method' => 'PUT', 'route' => ['user-password.update']]) !!}
                             {!! Form::label('current_password', 'Senha Actual:') !!}
                             <div class="form-group">
-                                {!! Form::password('current_password', ['class' => 'form-control ' . ($errors->has('current_password') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('current_password'))
+                                {!! Form::password('current_password', ['class' => 'form-control ' . ($errors->updatePassword->has('current_password') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updatePassword->has('current_password'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('current_password') }}</strong>
+                                        <strong>O campo senha actual é obrigatório.</strong>
                                     </div>
                                 @endif
                             </div>
                             {!! Form::label('password', 'Nova Senha:') !!}
                             <div class="form-group">
-                                {!! Form::password('password', ['class' => 'form-control ' . ($errors->has('password') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('password'))
+                                {!! Form::password('password', ['class' => 'form-control ' . ($errors->updatePassword->has('password') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updatePassword->has('password'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->updatePassword->first('password') }}</strong>
                                     </div>
                                 @endif
                             </div>
 
                             {!! Form::label('password_confirmation', 'Confirmar Senha:') !!}
                             <div class="form-group">
-                                {!! Form::password('password_confirmation', ['class' => 'form-control ' . ($errors->has('password_confirmation') ? ' is-invalid' : '')]) !!}
-                                @if ($errors->has('password_confirmation'))
+                                {!! Form::password('password_confirmation', ['class' => 'form-control ' . ($errors->updatePassword->has('password_confirmation') ? ' is-invalid' : '')]) !!}
+                                @if ($errors->updatePassword->has('password_confirmation'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->updatePassword->first('password_confirmation') }}</strong>
                                     </div>
                                 @endif
                             </div>
