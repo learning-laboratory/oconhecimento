@@ -293,7 +293,11 @@ return [
                 ]
             ],
         ],
-
+        [
+            'text' => 'Funções e permissões',
+            'url'  => 'dashboard/laratrust',
+            'icon' => 'fas fa-fw fa-user-lock',
+        ],
     ],
 
     /*

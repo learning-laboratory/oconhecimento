@@ -2,9 +2,10 @@
 
 namespace App\Actions\Fortify;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Photo;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -20,7 +21,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-
             'email' => [
                 'required',
                 'string',
@@ -28,7 +28,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
+            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
+
+        if (isset($input['photo'])) {
+            $this->updateProfilePhoto($user, $input['photo']);
+        }
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
@@ -57,5 +62,22 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->save();
 
         $user->sendEmailVerificationNotification();
+    }
+
+    protected function updateProfilePhoto($user, $photo)
+    {
+        $path = $photo->store('users', 'public');
+
+        if($user->photo){
+            unlink('storage/' . $user->photo->path);
+            $user->photo->forceFill([
+                'path' => $path,
+            ])->save();
+        }
+
+        $photo = Photo::create(['path' => $path]);
+        $user->forceFill([
+            'photo_id' => $photo->id,
+        ])->save();
     }
 }
