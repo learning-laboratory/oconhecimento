@@ -74,7 +74,7 @@
                     <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @forelse ($articles as $article)
                             <div class="col align-items-stretch">
-                                <div class="card">
+                                <div class="card h-100">
                                     <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
                                         alt="Capa da Imagem">
                                     <div class="card-body">
@@ -106,7 +106,7 @@
                     <div id="recomendations" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @forelse ($recommendedArticles as $article)
                             <div class="col align-items-stretch">
-                                <div class="card">
+                                <div class="card h-100">
                                     <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
                                         alt="Capa da Imagem">
                                     <div class="card-body">
