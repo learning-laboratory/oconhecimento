@@ -29,7 +29,7 @@
                     </li>
                     <li class="nav-item dropdown text-uppercase">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Disciplinas
+                          Categórias
                         </a>
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                             @if($categories)

@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'categories');
+    }
+
     public function index()
     {
         $categories = Category::orderBy('created_at', 'desc')->get();

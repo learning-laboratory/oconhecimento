@@ -7,6 +7,10 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Tag::class, 'tags');
+    }
 
     public function index()
     {

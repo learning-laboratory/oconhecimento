@@ -91,7 +91,7 @@ class LaratrustSeeder extends Seeder
         if (Config::get('laratrust_seeder.truncate_tables')) {
             DB::table('roles')->truncate();
             DB::table('permissions')->truncate();
-            
+
             if (Config::get('laratrust_seeder.create_users')) {
                 $usersTable = (new \App\Models\User)->getTable();
                 DB::table($usersTable)->truncate();

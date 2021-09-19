@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => 'O Conhecimento',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'img/dashboard-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -241,14 +241,16 @@ return [
             'topnav_right' => true, // Or "topnav => true" to place on the left.
         ],
 
-
         // Sidebar items:
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Dashboard',
+            'url'  => '/dashboard',
+            'icon'    => 'fas fa-fw fa-tachometer-alt',
         ],
-        ['header' => 'OPERACÇÕES'],
+        [
+            'header' => 'OPERACÇÕES',
+            'can'   => 'management-operations',
+        ],
         [
             'text'    => 'Artigos',
             'icon'    => 'fas fa-fw fa-newspaper',
@@ -262,22 +264,26 @@ return [
                     'url'  => 'dashboard/articles/create',
                 ]
             ],
+            'can'   => ['management-articles']
         ],
         [
             'text'    => 'Categórias',
             'icon'    => 'fas fa-fw fa-clipboard-list',
-            'url'     => 'dashboard/categories'
+            'url'     => 'dashboard/categories',
+            'can'     => ['management-categories']
         ],
         [
             'text'    => 'Tags',
             'icon'    => 'fas fa-fw fas fa-tags',
-            'url'     => 'dashboard/tags'
+            'url'     => 'dashboard/tags',
+            'can'   => ['management-tags']
         ],
         ['header' => 'CONFIGURAÇÕES DA CONTA'],
         [
             'text' => 'Meu Perfil',
             'url'  => 'dashboard/profile',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => ['management-profile']
         ],
         [
             'text'    => 'Utilizadores',
@@ -292,11 +298,13 @@ return [
                     'url'  => 'dashboard/users/create',
                 ]
             ],
+            'can' => ['management-users']
         ],
         [
             'text' => 'Funções e permissões',
             'url'  => 'dashboard/laratrust',
             'icon' => 'fas fa-fw fa-user-lock',
+            'can'  => ['management-laratrust']
         ],
     ],
 
