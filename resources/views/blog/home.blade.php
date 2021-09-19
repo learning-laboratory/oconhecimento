@@ -320,13 +320,13 @@
                                     term);
                             }
                         }
-                        $('#articles-list').html("")
-                        $('#articles-list').html(data)
+                        $('#articles').html("")
+                        $('#articles').html(data)
                     } else {
                         if (voice_response) {
                             textToSpeech("Nenhum resultado foi encontrado na busca por " + term);
                         }
-                        $('#articles-list').html(
+                        $('#articles').html(
                             '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
                         )
                     }

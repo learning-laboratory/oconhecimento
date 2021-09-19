@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Fortify\CreateNewUser;
 use App\Http\Requests\CreateUserRequest;
-use App\Models\Article;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
@@ -12,6 +10,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'users');
+    }
 
     public function index()
     {
@@ -23,8 +26,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('display_name','id');
-        return view('dashboard.users.create',[
+        $roles = Role::pluck('display_name', 'id');
+        return view('dashboard.users.create', [
             'roles' => $roles
         ]);
     }
@@ -47,18 +50,18 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('message', 'Utilizador registado com successo.');
     }
 
-    public function uploadPhotoAndReturnPhotoId(Request $request, User $user = null) :null|int
+    public function uploadPhotoAndReturnPhotoId(Request $request, User $user = null): null|int
     {
 
-        if(!$request->photo  && $user && $user->photo)
+        if (!$request->photo  && $user && $user->photo)
             return $user->photo->id;
 
-        if(!$request->photo)
+        if (!$request->photo)
             return null;
 
         $path = $request->file('photo')->store('users', 'public');
 
-        if($user && $user->photo){
+        if ($user && $user->photo) {
             unlink('storage/' . $user->photo->path);
             $user->photo->update(['path' => $path]);
             return $user->photo->id;
@@ -99,7 +102,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if ($user->photo) {
-            $path = 'storage/'.$user->photo->path;
+            $path = 'storage/' . $user->photo->path;
             if (file_exists($path))
                 unlink($path);
             $user->photo()->delete();

@@ -247,7 +247,10 @@ return [
             'url'  => '/dashboard',
             'icon'    => 'fas fa-fw fa-tachometer-alt',
         ],
-        ['header' => 'OPERACÇÕES'],
+        [
+            'header' => 'OPERACÇÕES',
+            'can'   => 'management-operations',
+        ],
         [
             'text'    => 'Artigos',
             'icon'    => 'fas fa-fw fa-newspaper',
@@ -261,22 +264,26 @@ return [
                     'url'  => 'dashboard/articles/create',
                 ]
             ],
+            'can'   => ['management-articles']
         ],
         [
             'text'    => 'Categórias',
             'icon'    => 'fas fa-fw fa-clipboard-list',
-            'url'     => 'dashboard/categories'
+            'url'     => 'dashboard/categories',
+            'can'     => ['management-categories']
         ],
         [
             'text'    => 'Tags',
             'icon'    => 'fas fa-fw fas fa-tags',
-            'url'     => 'dashboard/tags'
+            'url'     => 'dashboard/tags',
+            'can'   => ['management-tags']
         ],
         ['header' => 'CONFIGURAÇÕES DA CONTA'],
         [
             'text' => 'Meu Perfil',
             'url'  => 'dashboard/profile',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => ['management-profile']
         ],
         [
             'text'    => 'Utilizadores',
@@ -291,11 +298,13 @@ return [
                     'url'  => 'dashboard/users/create',
                 ]
             ],
+            'can' => ['management-users']
         ],
         [
             'text' => 'Funções e permissões',
             'url'  => 'dashboard/laratrust',
             'icon' => 'fas fa-fw fa-user-lock',
+            'can'  => ['management-laratrust']
         ],
     ],
 

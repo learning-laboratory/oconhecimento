@@ -9,7 +9,7 @@
     <section class="p-5 m-5">
 
         <div id="loader" style="display: none">
-            <img src="{{ asset('img/ajax-loader.gif') }}" alt="Imagem de carregamento">
+            <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
         </div>
 
         <div class="container">
