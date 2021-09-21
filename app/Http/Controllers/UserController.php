@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
@@ -32,7 +34,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(CreateUserRequest $request)
+    public function store(UserCreateRequest $request)
     {
         $userData = [
             'name'         => $request->name,
@@ -81,12 +83,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
+        $password = $request->password ? bcrypt($request->password) : $user->password;
         $userData = [
             'name'         => $request->name,
             'email'        => $request->email,
-            'password'     => bcrypt($request->password),
+            'password'     => $password,
             'description'  => $request->description,
             'is_suspended' => $request->is_suspended,
             'photo_id' => $this->uploadPhotoAndReturnPhotoId($request, $user),

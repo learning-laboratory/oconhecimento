@@ -31,15 +31,18 @@ Route::get('/articles/archive/{month}', [BlogController::class, 'archive'])->nam
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 Route::get('/search/category/{category_id}', [BlogController::class, 'search_category'])->name('blog.search_category');
 
-Route::prefix('dashboard')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->middleware('auth', 'check.status')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('users', UserController::class);
     Route::get('profile', [UserController::class, 'profile'])->name('profile');
-    Route::resource('articles', ArticleController::class);
-    Route::resource('tags', TagController::class);
-    Route::resource('categories', CategoryController::class)->except('show');
-    Route::get('categories/search', [CategoryController::class, 'search'])->name('categories.search');
 
+    Route::middleware('role:superadministrador|editor')->group(function () {
+        Route::resource('articles', ArticleController::class);
+        Route::resource('tags', TagController::class);
+        Route::resource('categories', CategoryController::class)->except('show');
+    });
+
+    Route::middleware('role:superadministrador')->group(function () {
+        Route::resource('users', UserController::class);
+    });
 });
-

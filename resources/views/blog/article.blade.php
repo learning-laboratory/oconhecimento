@@ -40,8 +40,7 @@
 
         <div class="container-fluid">
             <div class="row">
-
-                <div id="articles-list" class="col-sm-12 col-md-8">
+                <div id="articles" class="col-sm-12 col-md-8">
                     <div class="article-categories py-2">
                         @forelse ($article->categories as $category)
                             <span class="badge bg-dark">
@@ -371,13 +370,13 @@
                         });
                         rows += '</div>'
 
-                        $('#articles-list').html("")
-                        $('#articles-list').html(rows)
+                        $('#articles').html("")
+                        $('#articles').html(rows)
                     } else {
                         if (voice_response) {
                             textToSpeech("Nenhum resultado foi encontrado na busca por " + term);
                         }
-                        $('#articles-list').html(
+                        $('#articles').html(
                             '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
                         )
                     }

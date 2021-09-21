@@ -74,21 +74,17 @@
                     <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @forelse ($articles as $article)
                             <div class="col align-items-stretch">
-                                <div class="card">
+                                <div class="card h-100">
                                     <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
                                         alt="Capa da Imagem">
                                     <div class="card-body">
                                         <h5 class="card-title">
 
-                                            <h4 class="card-title"> <a class="article-title" href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
+                                            <h4 class="card-title"> <a class="article-title"
+                                                    href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
                                         </h5>
-                                        @if ($article->created_at == $article->updated_at)
-                                            <p class="card-text"><small class="text-muted">Publicado
-                                                    {{ $article->getCreatedAtFormated() }}</small></p>
-                                        @else
-                                            <p class="card-text"><small class="text-muted">Última atualização
-                                                    {{ $article->getUpdatedAtFormated() }}</small></p>
-                                        @endif
+                                        <p class="card-text"><small
+                                                class="text-muted">{{ $article->getPublishedDate() }}</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -106,20 +102,16 @@
                     <div id="recomendations" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @forelse ($recommendedArticles as $article)
                             <div class="col align-items-stretch">
-                                <div class="card">
+                                <div class="card h-100">
                                     <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
                                         alt="Capa da Imagem">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <h4 class="card-title"> <a class="article-title" href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
+                                            <h4 class="card-title"> <a class="article-title"
+                                                    href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
                                         </h5>
-                                        @if ($article->updated_at)
-                                            <p class="card-text"><small class="text-muted">Última atualização
-                                                    {{ $article->getUpdatedAtFormated() }}</small></p>
-                                        @else
-                                            <p class="card-text"><small class="text-muted">Publicado
-                                                    {{ $article->getCreatedAtFormated() }}</small></p>
-                                        @endif
+                                        <p class="card-text"><small
+                                                class="text-muted">{{ $article->getPublishedDate() }}</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -321,6 +313,7 @@
                             }
                         }
                         $('#articles').html("")
+                        $('.article-paginate').html("")
                         $('#articles').html(data)
                     } else {
                         if (voice_response) {
