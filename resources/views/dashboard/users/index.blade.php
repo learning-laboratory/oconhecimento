@@ -68,9 +68,9 @@
                                                 </td>
                                                 <td>
                                                     @if ($user->is_suspended)
-                                                        <span class="badge badge-danger">Suspensa</span>
+                                                        <span title="O utilizador não poderá aceder ao sistema." class="badge badge-danger">Suspensa</span>
                                                     @else
-                                                        <span class="badge badge-success">Activa</span>
+                                                        <span title="O utilizador pode aceder ao sistema." class="badge badge-success">Activa</span>
                                                     @endif
                                                 </td>
                                                 <td class="py-0 align-middle">

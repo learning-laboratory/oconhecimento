@@ -31,7 +31,7 @@ Route::get('/articles/archive/{month}', [BlogController::class, 'archive'])->nam
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 Route::get('/search/category/{category_id}', [BlogController::class, 'search_category'])->name('blog.search_category');
 
-Route::prefix('dashboard')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->middleware('auth', 'check.status')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
