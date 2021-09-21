@@ -74,8 +74,6 @@ class Article extends Model
 
     public function getPublishedDate()
     {
-        if ($this->created_at == $this->updated_at)
-            return 'Publicado ' . $this->created_at->diffForHumans();
-        return 'Ultima atualizacao ' . $this->updated_at->diffForHumans();
+        return 'Publicado ' . $this->created_at->diffForHumans();
     }
 }

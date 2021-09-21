@@ -122,13 +122,7 @@ class BlogController extends Controller
             $image = $article->getFeaturedImage();
             $link = $article->getLink();
             $title = $article->title;
-            $created_at = $article->getCreatedAtFormated();
-            $updated_at = $article->getUpdatedAtFormated();
-
-            $published = '<p class="card-text"><small class="text-muted">Última atualização ' . $updated_at . '</small></p>';
-            if ($created_at == $updated_at) {
-                $published =  '<p class="card-text"><small class="text-muted">Publicado' . $created_at . '</small></p>';
-            }
+            $published = $article->getPublishedDate();
 
             $articlesHtml[] = '<div class="col align-items-stretch">
                     <div class="card">
@@ -136,9 +130,9 @@ class BlogController extends Controller
                             alt="Capa da Imagem">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <h4 class="card-title"> <a class="article-title" href="'.$link.'">'.$title.'</a></h4>
+                                <h4 class="card-title"> <a class="article-title" href="' . $link . '">' . $title . '</a></h4>
                             </h5>
-                            ' . $published . '
+                            <p class="card-text"><small class="text-muted">' . $published . '</small></p>
                         </div>
                     </div>
                 </div>';
@@ -161,24 +155,16 @@ class BlogController extends Controller
             $image = $article->getFeaturedImage();
             $link = $article->getLink();
             $title = $article->title;
-            $author = $article->author->name;
-            $created_at = $article->created_at->diffForHumans();
+            $published = $article->getPublishedDate();
 
             $articlesHtml[] = '<div class="col py-3"><div class="card shadow-sm">
                 <img src="' . $image . '" class="card-img-top" width="100%" height="235" alt="Capa do Artigo">
                     <div class="card-body">
                         <h2 class="article-title">
-                            <a href="' . $link . '">'
-                . $title .
-                '</a>
+                            <a href="' . $link . '">' . $title . '</a>
                         </h2>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="article-author">
-                                De ' . $author . '
-                            </div>
-                            <small class="text-muted article-published">Publicado
-                            ' . $created_at . '
-                            </small>
+                            <small class="text-muted article-published">' . $published . '</small>
                         </div>
                     </div>
                 </div>

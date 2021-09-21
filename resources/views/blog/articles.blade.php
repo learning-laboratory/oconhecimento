@@ -2,48 +2,48 @@
 
 @section('content')
 
-<div id="loader" style="display: none">
-    <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
-</div>
-
-<section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
-    <div class="container">
-        <div class="search-section">
-            <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
-            <div class="input-group">
-                <div class="input-group">
-                    <input name="term" id="term" type="text" class="form-control py-3">
-                    <button id="search-btn" class="input-group-text">
-                        <i class="fas fa-search px-3"></i>
-                    </button>
-                    <button id="mic-btn" class="input-group-text" data-bs-toggle="modal" data-bs-target="#micModal">
-                        <i class="fas fa-microphone px-3"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="modal-lable" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-lable">Pesquisar por voz</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body py-5">
-                        <span id="final_span" class="final"></span>
-                        <span id="interim_span" class="interim"></span>
-                    </div>
-                    <div class="modal-footer  justify-content-between">
-                        <p>Clique no botão iniciar e comece a falar.</p>
-                        <button type="button" class="btn btn-danger text-white"
-                            onclick="startButton(event)">Iniciar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="loader" style="display: none">
+        <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
     </div>
-</section>
+
+    <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
+        <div class="container">
+            <div class="search-section">
+                <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
+                <div class="input-group">
+                    <div class="input-group">
+                        <input name="term" id="term" type="text" class="form-control py-3">
+                        <button id="search-btn" class="input-group-text">
+                            <i class="fas fa-search px-3"></i>
+                        </button>
+                        <button id="mic-btn" class="input-group-text" data-bs-toggle="modal" data-bs-target="#micModal">
+                            <i class="fas fa-microphone px-3"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="modal-lable" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-lable">Pesquisar por voz</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body py-5">
+                            <span id="final_span" class="final"></span>
+                            <span id="interim_span" class="interim"></span>
+                        </div>
+                        <div class="modal-footer  justify-content-between">
+                            <p>Clique no botão iniciar e comece a falar.</p>
+                            <button type="button" class="btn btn-danger text-white"
+                                onclick="startButton(event)">Iniciar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="p-5 my-2">
         <div class="container">
             <div class="row">
@@ -69,11 +69,8 @@
                                                 <h4 class="card-title">{{ $article->title }}</h4>
                                             </a>
                                         </h5>
-                                        @if ($article->created_at == $article->updated_at)
-                                            <p class="card-text"><small class="text-muted">Publicado {{ $article->getCreatedAtFormated() }}</small></p>
-                                        @else
-                                            <p class="card-text"><small class="text-muted">Última atualização {{ $article->getUpdatedAtFormated() }}</small></p>
-                                        @endif
+                                        <p class="card-text"><small class="text-muted">
+                                                {{ $article->getPublishedDate() }}</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +89,6 @@
 @section('js')
     <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
     <script>
-
         var final_transcript = '';
         var recognizing = false;
         var ignore_onend;
