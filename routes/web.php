@@ -29,7 +29,6 @@ Route::get('/article/{article_id}', [BlogController::class, 'article'])->name('b
 Route::get('/articles/category/{category_id}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/articles/archive/{month}', [BlogController::class, 'archive'])->name('blog.archive');
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
-Route::get('/search/category/{category_id}', [BlogController::class, 'search_category'])->name('blog.search_category');
 
 Route::prefix('dashboard')->middleware('auth', 'check.status')->group(function () {
 

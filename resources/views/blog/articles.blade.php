@@ -3,7 +3,7 @@
 @section('content')
 
     <div id="loader" style="display: none">
-        <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+        <img src="{{ asset('img/loader.gif') }}" alt="Imagem de carregamento">
     </div>
 
     <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
@@ -60,7 +60,7 @@
                     <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         @forelse ($articles as $article)
                             <div class="col align-items-stretch">
-                                <div class="card">
+                                <div class="card h-100">
                                     <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
                                         alt="Capa da Imagem">
                                     <div class="card-body">
@@ -75,9 +75,12 @@
                                 </div>
                             </div>
                         @empty
-                            <p><strong>Sem artigos</strong></p>
+                            <p><strong>Nenhum artigo foi publicado.</strong></p>
                         @endforelse
                     </div>
+                </div>
+                <div id="article-paginate" class="pt-4 d-flex justify-content-center">
+                    {{ $articles->links() }}
                 </div>
             </div>
         </div>
@@ -242,9 +245,10 @@
                             textToSpeech("Nenhum resultado foi encontrado na busca por " + term);
                         }
                         $('#articles').html(
-                            '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
+                            '<div class="col-sm-12 col-md-4"><p><strong>Nenhum resultado foi encontrado!</strong></p></div>'
                         )
                     }
+                    $("#article-paginate").html("");
                 },
                 complete: function() {
                     $('#loader').fadeOut();

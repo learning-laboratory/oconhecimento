@@ -1,8 +1,9 @@
 @extends('layouts.blog')
 
 @section('content')
+
     <div id="loader" style="display: none">
-        <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+        <img src="{{ asset('img/loader.gif') }}" alt="Imagem de carregamento">
     </div>
 
     <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
@@ -43,30 +44,15 @@
             </div>
         </div>
     </section>
-
     <section class="p-5 my-2">
-        <nav>
-            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">Todos artigos</button>
-                <button class="nav-link" id="nav-recomendation-tab" data-bs-toggle="tab"
-                    data-bs-target="#nav-recomendation" type="button" role="tab" aria-controls="nav-recomendation"
-                    aria-selected="false">Recomendações</button>
-                <button class="btn border dropdown">
-                    <a class="text-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        role="button" aria-expanded="false">Disciplinas</a>
-                    <ul id="category-menu" class="dropdown-menu ">
-                        @forelse ($categories as $category)
-                            <li><a class="category dropdown-item"
-                                    data-href="{{ $category->getSearchCategoryLink() }}">{{ $category->name }}</a>
-                            </li>
-                        @empty
-                            <li><a class="dropdown-item" href="#">Sem disciplinas</a></li>
-                        @endforelse
-                    </ul>
-                </button>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="page-title">{{ $title }}</h2>
+                    <p>Veja todos os artigos disponiveis</p>
+                </div>
             </div>
-        </nav>
+        </div>
 
         <div class="tab-content pt-5 pb-2" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -79,50 +65,23 @@
                                         alt="Capa da Imagem">
                                     <div class="card-body">
                                         <h5 class="card-title">
-
-                                            <h4 class="card-title"> <a class="article-title"
-                                                    href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
+                                            <a href="{{ $article->getLink() }}">
+                                                <h4 class="card-title">{{ $article->title }}</h4>
+                                            </a>
                                         </h5>
-                                        <p class="card-text"><small
-                                                class="text-muted">{{ $article->getPublishedDate() }}</small></p>
+                                        <p class="card-text"><small class="text-muted">
+                                                {{ $article->getPublishedDate() }}</small></p>
                                     </div>
                                 </div>
                             </div>
                         @empty
-                            <p><strong>Sem artigos</strong></p>
-                        @endforelse
-                    </div>
-                    <div class="article-paginate d-flex justify-content-center py-4">
-                        {{ $articles->links() }}
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="nav-recomendation" role="tabpanel" aria-labelledby="nav-recomendation-tab">
-                <div class="container">
-                    <div id="recomendations" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        @forelse ($recommendedArticles as $article)
-                            <div class="col align-items-stretch">
-                                <div class="card h-100">
-                                    <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
-                                        alt="Capa da Imagem">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <h4 class="card-title"> <a class="article-title"
-                                                    href="{{ $article->getLink() }}">{{ $article->title }}</a></h4>
-                                        </h5>
-                                        <p class="card-text"><small
-                                                class="text-muted">{{ $article->getPublishedDate() }}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p><strong>Sem artigos</strong></p>
+                            <p><strong>Nenhum artigo foi publicado.</strong></p>
                         @endforelse
                     </div>
                 </div>
-            </div>
-            <div id="category" class="tab-pane fade">
-                category
+                <div id="article-paginate" class="pt-4 d-flex justify-content-center">
+                    {{ $articles->links() }}
+                </div>
             </div>
         </div>
     </section>
@@ -133,39 +92,6 @@
 @section('js')
     <script src="{{ asset('js/jquery-3.6.0.js') }}"></script>
     <script>
-        $("#category-menu").on("click", ".category", function(event) {
-            href = $(this).data("href");
-            if (href) {
-                $.ajax({
-                    url: href,
-                    type: 'GET',
-                    beforeSend: function() {
-                        $('#loader').fadeIn();
-                    },
-                    success: function(data) {
-                        if (data) {
-                            $('#articles').html("");
-                            $('#recomendations').html("");
-
-                            $('#articles').html(data.articles);
-                            $('#recomendations').html(data.mostViewArticles);
-                        } else {
-                            $('#articles').html(
-                                '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
-                            );
-                            $('#recomendations').html(
-                                '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
-                            );
-                        }
-
-                    },
-                    complete: function() {
-                        $('#loader').fadeOut();
-                    }
-                });
-            }
-        });
-
         var final_transcript = '';
         var recognizing = false;
         var ignore_onend;
@@ -313,16 +239,16 @@
                             }
                         }
                         $('#articles').html("")
-                        $('.article-paginate').html("")
                         $('#articles').html(data)
                     } else {
                         if (voice_response) {
                             textToSpeech("Nenhum resultado foi encontrado na busca por " + term);
                         }
                         $('#articles').html(
-                            '<div class="col-sm-12 col-md-4 px-3"><p><strong>Sem registos!</strong></p></div>'
+                            '<div class="col-sm-12 col-md-4"><p><strong>Nenhum resultado foi encontrado!</strong></p></div>'
                         )
                     }
+                    $("#article-paginate").html("");
                 },
                 complete: function() {
                     $('#loader').fadeOut();
