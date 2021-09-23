@@ -27,6 +27,9 @@
                     <li class="nav-item text-uppercase ">
                         <a class="nav-link  active" aria-current="page" href="{{ url('/') }}">Inicio</a>
                     </li>
+                    <li class="nav-item text-uppercase">
+                        <a class="nav-link" aria-current="page" href="{{ route('blog.articles') }}">Artigos</a>
+                    </li>
                     <li class="nav-item dropdown text-uppercase">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Categórias

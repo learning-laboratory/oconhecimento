@@ -17,13 +17,13 @@ class BlogController extends Controller
 
     public function home()
     {
-        $articles = Article::orderBy('created_at', 'desc')->paginate(9);
+        $articles = Article::orderBy('views', 'desc')->paginate(9);
         $categories = Category::all();
 
         return view('blog.home', [
             'articles' => $articles,
             'categories' => $categories,
-            'title' => 'Artigos'
+            'title' => 'Artigos Populares'
         ]);
     }
 
@@ -53,6 +53,18 @@ class BlogController extends Controller
             'articles' => $articles,
             'archives' => $archives,
             'categories' => $categories
+        ]);
+    }
+
+    public function articles()
+    {
+        $articles = Article::orderBy('created_at', 'desc')->paginate(9);
+        $categories = Category::all();
+
+        return view('blog.articles', [
+            'articles' => $articles,
+            'categories' => $categories,
+            'title' => 'Artigos'
         ]);
     }
 

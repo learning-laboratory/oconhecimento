@@ -9,7 +9,7 @@
     <section class="hero-overlay hero d-md-block d-none position-relative bg-no-repeat bg-position-center">
         <div class="container">
             <div class="search-section">
-                <h3 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h3>
+                <h4 class="text-white">Encontre os melhores artigos acadêmicos para os seus trabalhos</h4>
                 <div class="input-group">
                     <div class="input-group">
                         <input name="term" id="term" type="text" class="form-control py-3">
@@ -54,35 +54,31 @@
             </div>
         </div>
 
-        <div class="tab-content pt-5 pb-2" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="container">
-                    <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        @forelse ($articles as $article)
-                            <div class="col align-items-stretch">
-                                <div class="card h-100">
-                                    <img src="{{ $article->getFeaturedImage() }}" class="card-img-top"
-                                        alt="Capa da Imagem">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <a href="{{ $article->getLink() }}">
-                                                <h4 class="card-title">{{ $article->title }}</h4>
-                                            </a>
-                                        </h5>
-                                        <p class="card-text"><small class="text-muted">
-                                                {{ $article->getPublishedDate() }}</small></p>
-                                    </div>
-                                </div>
+        <div class="container py-3">
+            <div id="articles" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @forelse ($articles as $article)
+                    <div class="col align-items-stretch">
+                        <div class="card h-100">
+                            <img src="{{ $article->getFeaturedImage() }}" class="card-img-top" alt="Capa da Imagem">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{{ $article->getLink() }}">
+                                        <h4 class="card-title">{{ $article->title }}</h4>
+                                    </a>
+                                </h5>
+                                <p class="card-text"><small class="text-muted">
+                                        {{ $article->getPublishedDate() }}</small></p>
                             </div>
-                        @empty
-                            <p><strong>Nenhum artigo foi publicado.</strong></p>
-                        @endforelse
+                        </div>
                     </div>
-                </div>
-                <div id="article-paginate" class="pt-4 d-flex justify-content-center">
-                    {{ $articles->links() }}
-                </div>
+                @empty
+                    <p><strong>Nenhum artigo foi publicado.</strong></p>
+                @endforelse
             </div>
+        </div>
+
+        <div id="article-paginate" class="pt-4 d-flex justify-content-center">
+            {{ $articles->links() }}
         </div>
     </section>
 

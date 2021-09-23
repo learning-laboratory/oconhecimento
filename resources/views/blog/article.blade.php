@@ -14,8 +14,7 @@
 
         <div class="container">
             <div class="row justify-content-center">
-                <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="micModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="micModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -64,7 +63,8 @@
                                             <h6 class="mb-1 article-author">{{ $article->author->name }}</h6>
                                             <div class="text-nowrap">
                                                 <div class="article-meta fs-xs">
-                                                    <i class="fa fa-calendar me-1 align-vertical"></i>&nbsp;{{ $article->getPublishedDate() }}
+                                                    <i
+                                                        class="fa fa-calendar me-1 align-vertical"></i>&nbsp;{{ $article->getPublishedDate() }}
                                                 </div>
                                             </div>
                                         </div>

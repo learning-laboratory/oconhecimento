@@ -10874,7 +10874,7 @@ textarea.form-control-lg {
 }
 .hero {
   background-image: url("/img/hero.jpg");
-  height: 470px;
+  height: 400px;
 }
 
 .search-section {
@@ -10901,7 +10901,7 @@ textarea.form-control-lg {
 .search-section #term {
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  height: 55px;
+  height: 50px;
   margin-right: -0.2px;
   border-color: transparent;
 }
@@ -11103,17 +11103,17 @@ textarea.form-control-lg {
 }
 
 .social-links a:hover > .fa-facebook-f {
-  color: #00009C;
+  color: #00009c;
 }
 
 .social-links a:hover > .fa-twitter {
-  color: #00E9E9;
+  color: #00e9e9;
 }
 
 .social-links a:hover > .fa-instagram {
-  color: #B62249;
+  color: #b62249;
 }
 
 .social-links a:hover > .fa-youtube {
-  color: #E61818;
+  color: #e61818;
 }
