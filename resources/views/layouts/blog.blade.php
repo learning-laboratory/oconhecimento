@@ -66,13 +66,12 @@
             <div class="row">
                 <div class="col-md-5">
                     <h2 class="footer-title py-1">O Conhecimento</h2>
-                    <p class="footer-description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem quidem
-                        quo harum inventore, error assumenda.</p>
+                    <p class="footer-description">O conhecimento e um site que disponibiliza artigos acadêmicos, garantindo a inclusão dos deficientes visuais por meio de pesquisa de voz e leitura automática dos artigos.</p>
                     <div class="mt-md-4">
                         <h2 class="footer-title py-1">Siga-nos</h2>
                         <ul class="social-links list-unstyled d-flex">
                             <li>
-                                <a href="#" target="_blank">
+                                <a href="https://www.facebook.com/oconhecimento/" target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
