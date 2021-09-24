@@ -9,17 +9,16 @@
     <section class="p-5 m-5">
 
         <div id="loader" style="display: none">
-            <img src="{{ asset('img/Infinity-1s-200px.gif') }}" alt="Imagem de carregamento">
+            <img src="{{ asset('img/loader.gif') }}" alt="Imagem de carregamento">
         </div>
 
         <div class="container">
             <div class="row justify-content-center">
-                <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="micModal" tabindex="-1" aria-labelledby="micModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Pesquisar por voz</h5>
+                                <h5 class="modal-title" id="micModalLabel">Pesquisar por voz</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
