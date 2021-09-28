@@ -16,7 +16,7 @@
                         <button id="search-btn" class="input-group-text">
                             <i class="fas fa-search px-3"></i>
                         </button>
-                        <button onclick="startButton(event)" id="mic-btn" class="input-group-text">
+                        <button id="mic-btn" class="input-group-text" data-bs-toggle="modal" data-bs-target="#micModal">
                             <i class="fas fa-microphone px-3"></i>
                         </button>
                     </div>
